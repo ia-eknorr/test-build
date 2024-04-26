@@ -1,0 +1,6 @@
+services:
+  alpine:
+    build:
+      dockerfile: Dockerfile
+      context: build-base
+    image: local/alpine-image
