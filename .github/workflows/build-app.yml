@@ -12,23 +12,25 @@ jobs:
         shell: bash
 
     steps:
-      - name: Checkout Repository
+      -
+        name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Start Docker Compose
-        run: docker compose up -d --wait --wait-timeout 120
-
-      - name: Save Docker Image
+      -
+        name: Build Docker Image
+        run: docker build -t local/ignition-base:latest -f build-base/Dockerfile build-base
+      -
+        name: Save Docker Image
         run: |
           docker save local/ignition-base:latest > image.tar
-
-      - name: Upload Docker Image
+      -
+        name: Upload Docker Image
         uses: actions/upload-artifact@v4
         with:
           name: base-image
           path: image.tar
 
-      - name: Upload build artifact
+      -
+        name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: build-app
