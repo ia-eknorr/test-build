@@ -21,14 +21,17 @@ jobs:
       -
         name: Save Docker Image
         run: |
-          docker save local/ignition-base:latest > image.tar
+          docker save local/ignition-base:latest > package/image.tar
       -
-        name: Upload Docker Image
+        name: Create tarball to preserve permissions
+        run: |
+          tar -cvf package.tar package/
+      -
+        name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: base-image
-          path: image.tar
-
+          name: build-image
+          path: package.tar
       -
         name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -51,10 +54,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: base-image
+      - name: Export base-image tar
+        run: |
+          tar -xvf base-image/package.tar
       -
         name: Load Docker Image
         run: |
-            docker load < image.tar
+            docker load < package/image.tar
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
