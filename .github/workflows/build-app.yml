@@ -24,6 +24,10 @@ jobs:
           mkdir -p package
           docker save local/ignition-base:latest > package/image.tar
       -
+        name: See package permissions
+        run: |
+          ls -lah package
+      -
         name: Create tarball to preserve permissions
         run: |
           tar -cvf package.tar package/
@@ -53,10 +57,12 @@ jobs:
       -
         name: Load Docker Image
         run: |
-            docker load < package/image.tar
+            docker load -i package/image.tar
       -
         name: See all the files
-        run: ls -lah
+        run: |
+          ls -lah
+          ls -lah package
       -
         name: See all docker images
         run: docker images
