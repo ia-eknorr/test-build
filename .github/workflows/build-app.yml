@@ -31,25 +31,13 @@ jobs:
         name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-image
+          name: base-image
           path: package.tar
-      -
-        name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-app
-          path: build-app/
 
   build-app:
     runs-on: ubuntu-latest
     needs: pre-build
     steps:
-      -
-        name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build-app
-          path: build-app/
       -
         name: Download Docker Image
         uses: actions/download-artifact@v4
