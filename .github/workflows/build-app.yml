@@ -47,12 +47,6 @@ jobs:
         with:
           name: base-image
       -
-        name: See all the files
-        run: ls -lah
-      -
-        name: See all docker images
-        run: docker images
-      -
         name: Export base-image tar
         run: |
           tar -xvf package.tar
@@ -60,6 +54,12 @@ jobs:
         name: Load Docker Image
         run: |
             docker load < package/image.tar
+      -
+        name: See all the files
+        run: ls -lah
+      -
+        name: See all docker images
+        run: docker images
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
