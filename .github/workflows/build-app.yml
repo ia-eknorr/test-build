@@ -43,9 +43,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: base-image
+      - name: See all the files
+        run: ls -lah
       - name: Export base-image tar
         run: |
-          tar -xvf base-image/package.tar
+          tar -xvf package.tar
       -
         name: Load Docker Image
         run: |
