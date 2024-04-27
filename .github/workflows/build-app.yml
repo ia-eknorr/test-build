@@ -63,6 +63,6 @@ jobs:
         id: build-backend
         uses: docker/build-push-action@v5
         with:
-          context: build-app/backend
+          context: build-app
           platforms: linux/amd64
           outputs: type=image,name=etknorr/build-app,push=false
