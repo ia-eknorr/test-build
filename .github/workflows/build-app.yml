@@ -21,6 +21,7 @@ jobs:
       -
         name: Save Docker Image
         run: |
+          mkdir -p package
           docker save local/ignition-base:latest > package/image.tar
       -
         name: Create tarball to preserve permissions
