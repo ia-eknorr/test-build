@@ -22,21 +22,13 @@ jobs:
         name: Save Docker Image
         run: |
           mkdir -p package
-          docker save local/test-build:latest > package/image.tar
-      -
-        name: See package permissions
-        run: |
-          ls -lah package
-      -
-        name: Create tarball to preserve permissions
-        run: |
-          tar -cvf package.tar package/
+          docker save local/test-build:latest > image.tar
       -
         name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: base-image
-          path: package.tar
+          path: image.tar
 
   build-app:
     runs-on: ubuntu-latest
@@ -51,18 +43,9 @@ jobs:
         with:
           name: base-image
       -
-        name: Export base-image tar
-        run: |
-          tar -xvf package.tar
-      -
         name: Load Docker Image
         run: |
-            docker load -i package/image.tar
-      -
-        name: See all the files
-        run: |
-          ls -lah
-          ls -lah package
+            docker load -i image.tar
       -
         name: See all docker images
         run: docker images
