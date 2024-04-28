@@ -1,6 +1,17 @@
 services:
-  alpine:
+  build-base:
+    container_name: build-base
     build:
       dockerfile: Dockerfile
       context: build-base
-    image: local/alpine-image
+    image: local/test-build:latest
+  build-app:
+    container_name: build-app
+    depends_on:
+      - build-base
+    build:
+      dockerfile: Dockerfile
+      context: build-app
+    image: local/test-app:latest
+    environment:
+      - MSG_BASE_OVERRIDE=I have been overridden by build-app

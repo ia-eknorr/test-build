@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "MSG_BASE: $MSG_BASE"
+echo "MSG_BASE_OVERRIDE: $MSG_BASE_OVERRIDE"
+echo "MSG_APP: $MSG_APP"

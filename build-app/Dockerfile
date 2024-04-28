@@ -1,4 +1,8 @@
-FROM local/ignition-base:latest
-ENV MY_VAR="Application!"
-RUN echo "My Var is $MY_VAR"
-CMD ["tail", "-f", "/dev/null"]
+FROM local/test-build:latest
+
+ENV MSG_APP="I came from the app!"
+
+COPY entrypoint-shim.sh /entrypoint-shim.sh
+RUN chmod +x /entrypoint-shim.sh
+
+ENTRYPOINT ["/entrypoint-shim.sh"]
