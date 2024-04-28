@@ -1,4 +1,5 @@
 # Inherited Images Example
+
 This project is a multi-stage Docker build setup with two services: build-base and build-app. The build-base service creates a base Docker image, and the build-app service uses this base image to create an application image. The project also includes a GitHub Actions workflow for building the Docker images.
 
 ## Project Structure
