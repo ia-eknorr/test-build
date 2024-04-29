@@ -46,7 +46,6 @@ jobs:
         name: ls /tmp
         run: |
           ls /tmp
-          ls /tmp/myimage.tar
       -
         name: Load image
         run: |
