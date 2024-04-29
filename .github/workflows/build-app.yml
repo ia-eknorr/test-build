@@ -16,19 +16,18 @@ jobs:
         name: Checkout Repository
         uses: actions/checkout@v4
       -
-        name: Build Docker Image
-        run: docker build -t local/test-build:latest -f build-base/Dockerfile build-base
-      -
-        name: Save Docker Image
-        run: |
-          mkdir -p package
-          docker save local/test-build:latest > image.tar
+        name: Build and export
+        uses: docker/build-push-action@v5
+        with:
+          context: build-base
+          tags: myimage:latest
+          outputs: type=docker,dest=/tmp/myimage.tar
       -
         name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: base-image
-          path: image.tar
+          path: /tmp/myimage.tar
 
   build-app:
     runs-on: ubuntu-latest
@@ -42,13 +41,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: base-image
+          path: /tmp/myimage.tar
       -
-        name: Load Docker Image
+        name: Load image
         run: |
-            docker load -i image.tar
-      -
-        name: See all docker images
-        run: docker images
+          docker load --input /tmp/myimage.tar
+          docker image ls -a    
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

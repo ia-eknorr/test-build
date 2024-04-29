@@ -1,4 +1,4 @@
-FROM local/test-build:latest
+FROM myimage:latest
 
 ENV MSG_APP="I came from the app!"
 
