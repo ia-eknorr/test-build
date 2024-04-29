@@ -41,14 +41,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: base-image
-          path: /tmp/myimage.tar
+          path: /tmp
       -
         name: ls /tmp
         run: ls /tmp
       -
         name: Load image
         run: |
-          docker load -i /tmp/myimage.tar
+          docker load --input /tmp/myimage.tar
           docker image ls -a    
       -
         name: Set up Docker Buildx
